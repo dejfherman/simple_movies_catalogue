@@ -1,0 +1,15 @@
+{% extends "movies/base.html" %}
+{% block content %}
+    <div class="detail-box">
+        <a href="{% url 'search' %}" class="back-button">← Back to Search</a>
+        <h1>{{ movie.name }}</h1>
+        <h2>Actors</h2>
+        <ul>
+            {% for actor in actors %}
+                <li><a href="{% url 'actor_detail' actor.pk %}">{{ actor.name }}</a></li>
+            {% empty %}
+                <li>No actors listed for this movie.</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
