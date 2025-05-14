@@ -1,10 +1,11 @@
 from movies.models import Movie, Actor
 from movies.services import find_by_name_match
 from django.shortcuts import render, get_object_or_404
+from movies.utils import limit_search_query
 
 def search_view(request):
     query = request.GET.get("q") or ""
-    query = query.strip()[:100]         # make sure maxlength is enforced
+    query = limit_search_query(query)
     actors = list(find_by_name_match(Actor, query)) if query else ()
     movies = list(find_by_name_match(Movie, query)) if query else ()
     return render(request, "movies/search.html", {

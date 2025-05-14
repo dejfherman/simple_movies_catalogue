@@ -2,34 +2,21 @@
 
 {% block content %}
 <form method="get" action="{% url 'search' %}">
-    <input type="text" name="q" placeholder="Search movies or actors..." maxlength="100" 
-           value="{{ request.GET.q|default_if_none:'' }}">
+    <input
+        type="text"
+        name="q"
+        placeholder="Search movies or actors..."
+        maxlength="100"
+        value="{{ request.GET.q|default_if_none:'' }}"
+        hx-get="/api/movies/livesearch"
+        hx-trigger="keyup changed delay:300ms"
+        hx-target="#search-results"
+        autocomplete="off"
+    >
     <button type="submit">Search</button>
 </form>
 
-{% if movies or actors %}
-<div class="results-container">
-    <div class="results-box">
-        <h2>Movies</h2>
-        <ul>
-            {% for movie in movies %}
-                <li><a href="{% url 'movie_detail' movie.pk %}">{{ movie.name }}</a></li>
-            {% empty %}
-                <li>No movies found.</li>
-            {% endfor %}
-        </ul>
-    </div>
-
-    <div class="results-box">
-        <h2>Actors</h2>
-        <ul>
-            {% for actor in actors %}
-                <li><a href="{% url 'actor_detail' actor.pk %}">{{ actor.name }}</a></li>
-            {% empty %}
-                <li>No actors found.</li>
-            {% endfor %}
-        </ul>
-    </div>
+<div id="search-results" class="results-container">
+    {% include "movies/search_results.html" %}
 </div>
-{% endif %}
 {% endblock %}

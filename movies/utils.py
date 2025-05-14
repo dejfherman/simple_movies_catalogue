@@ -19,3 +19,10 @@ def hash_url(url: str) -> str:
     Helper hashing method. Doesn't actually validate url format, we're using it with relative urls.
     """
     return hashlib.md5(url.encode('utf-8')).hexdigest()
+
+
+def limit_search_query(query: str) -> str:
+    """
+    Limit the input string to a reasonable length. Doubles FE limitation in case of validation bypass.
+    """
+    return query.strip()[:100]

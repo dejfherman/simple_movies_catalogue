@@ -1,0 +1,25 @@
+<div class="results-box">
+    <h2>Movies</h2>
+    {% if movies %}
+    <ul>
+        {% for movie in movies %}
+            <li><a href="{% url 'movie_detail' movie.pk %}">{{ movie.name }}</a></li>
+        {% empty %}
+            <li>No movies found.</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+
+<div class="results-box">
+    <h2>Actors</h2>
+    {% if actors %}
+    <ul>
+        {% for actor in actors %}
+            <li><a href="{% url 'actor_detail' actor.pk %}">{{ actor.name }}</a></li>
+        {% empty %}
+            <li>No actors found.</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>

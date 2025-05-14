@@ -14,6 +14,10 @@ class SearchViewTest(TestCase):
         self.assertContains(response, "Adam Černý")
         self.assertContains(response, "Černý jestřáb sestřelen")
 
+    def test_search_empty_query(self):
+        response = self.client.get(reverse('search'), {})
+        self.assertEqual(response.status_code, 200)
+
 
 class DetailViewTest(TestCase):
     def setUp(self):
@@ -38,4 +42,3 @@ class DetailViewTest(TestCase):
         self.assertContains(response, "Smrtonosná past")
         self.assertContains(response, "Bruce Willis")
         self.assertNotContains(response, "Adam Černý")
-
